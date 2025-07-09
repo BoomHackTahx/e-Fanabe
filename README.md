@@ -10,3 +10,4 @@ Puis lancer l'application avec:
 Aller vers le lien.
 
 Commencez à discuter avec le chatbot
+Le code a été coder en Malagasy
