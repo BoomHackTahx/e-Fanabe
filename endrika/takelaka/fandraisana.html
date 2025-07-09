@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="mg">
+<head>
+  <meta charset="UTF-8">
+  <title>Boty Malagasy</title>
+  <link rel="stylesheet" href="../static/style.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-white">
+  <div class="max-w-3xl mx-auto p-6">
+    <h1 class="text-3xl font-bold mb-6">🇲🇬 Boty Malagasy</h1>
+    <div id="resaka" class="space-y-4 bg-white dark:bg-gray-800 p-4 rounded shadow h-[400px] overflow-y-auto">
+      <div class="text-sm text-gray-500">Miarahaba! Anontanio momba an’i Madagasikara.</div>
+    </div>
+    <div class="mt-4 flex">
+      <input id="teny" class="flex-1 p-2 border rounded-l" placeholder="Anontanio amin'ny teny Malagasy..." />
+      <button onclick="alefa()" class="bg-green-600 text-white px-4 py-2 rounded-r">Alefa</button>
+    </div>
+  </div>
+
+  <script>
+    async function alefa() {
+      let teny = document.getElementById("teny");
+      let resaka = document.getElementById("resaka");
+      let fanontaniana = teny.value;
+      if (!fanontaniana) return;
+      resaka.innerHTML += `<div class="text-right"><b>Ianao:</b> ${fanontaniana}</div>`;
+      teny.value = "";
+      const valiny = await fetch("/manontany", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ fanontaniana })
+      });
+      const angona = await valiny.json();
+      resaka.innerHTML += `<div><b>Boty:</b> ${angona.valiny}</div>`;
+      resaka.scrollTop = resaka.scrollHeight;
+    }
+  </script>
+</body>
+</html>
